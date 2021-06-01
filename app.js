@@ -1,3 +1,12 @@
+let workhrs = ['06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00']
+function randNum(min,max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+
+let table1 = document.getElementById('salesdata')    
+let salesTable = document.createElement('table');
+table1.appendChild(salesTable);
 
 let workhrs = ['06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00']
 function randNum(min,max){
@@ -42,12 +51,17 @@ const seattleBranch = {
     seattleBranch.renderResult();
 
 
-function cookiesStore(min, max, avg){
+
+let branches = [];
+function cookiesStore(storeName,min, max, avg){
     this.minCustomer = min;
     this.maxCustomer = max;
     this.avgCookies = avg;
     this.saleHour = [];
     this.totalSales = 0;
+    this.storeName= storeName;
+    branches.push(this);
+
     
 
     const tokyoBranch = {
@@ -137,45 +151,17 @@ function cookiesStore(min, max, avg){
 
 cookiesStore.prototype.checkSales = function(){
     for(let i=0; i<workhrs.length; i++){
-        let rand = Math.floor(Math.random() * (this.maxCustomer - this.minCustomer) + this.minCustomer);
-        let sales = Math.floor(this.avgCookies*rand);
+        let sales = Math.floor(this.avgCookies*randNum(this.minCustomer,this.maxCustomer));
         this.totalSales = this.totalSales + sales;
         this.saleHour.push(sales);
     }
-    console.log(this.salHour);    
+    
 }
-
-
- 
-          
-   
-
- let seattleStore = new cookiesStore('Seattle',23, 65, 6.3);
- 
- let tokyoStore = new cookiesStore('Tokyo',3, 24, 1.2);
- let dubaiStore = new cookiesStore(11, 38, 3.7);
- let parisStore = new cookiesStore(20, 38, 2.3);
- let liamStore = new cookiesStore(2, 16, 4.6);
-
-seattleStore.checkSales();
-//console.log(seattleStore);
-tokyoStore.checkSales();
-dubaiStore.checkSales();
-parisStore.checkSales();
-liamStore.checkSales();
-
-
-
-
-
-
-let table1 = document.getElementById('salesdata')    
-let salesTable = document.createElement('table');
-table1.appendChild(salesTable);
-
 function Rows(){
     let heading = document.createElement('tr');
     table1.appendChild(heading);
+    let th1 = document.createElement('th');
+    heading.appendChild(th1);
     
     for(let i=0; i<workhrs.length;i++){
         let theading = document.createElement('th');
@@ -184,47 +170,31 @@ function Rows(){
 
         
     }
+    let dailyTotal = document.createElement('th');
+    heading.appendChild(dailyTotal);
+    dailyTotal.textContent= 'Daily Total';
 }
 Rows();
 
-// let branch= ['Seattle', 'Tokyo', 'Dubai', 'Paris','Liam'];
-// function resultData(cookie){
-//     let dRow = document.createElement('tr');
-//     salesTable.appendChild(dRow);
-//     for(let x=0; x<workhrs.length;x++){
-//         let cookieSale = document.createElement('td');
-//         dRow.appendChild(cookieSale);
-//         cookieSale.textContent=cookie.avgCusthour[x];
-//         }
-//     }
+cookiesStore.prototype.render=function(){
+    let tr = document.createElement('tr');
+    table1.appendChild(tr);
+    let cell1 = document.createElement('th');
+    tr.appendChild(cell1);
+    cell1.textContent= this.storeName;
+    for(let c=0; c<workhrs.length;c++){
+        let tds = document.createElement('td');
+        tr.appendChild(tds);
+        tds.textContent=this.saleHour[c];
+    }
+    let totalcell = document.createElement('th');
+    tr.appendChild(totalcell);
+    totalcell.textContent=this.totalSales;
 
-// resultData(seattleStore);
-// resultData(tokyoStore);
-// resultData(dubaiStore);
-// resultData(parisStore);
-// resultData(liamStore);
-function seattleSales(cookiSales){
-     let seattRow = document.createElement('tr');
-     salesTable.appendChild(seattRow);
-     seattRow.textContent= cookiSales.avgCusthour;;
 }
-seattleSales(seattleStore);
 
-function tokyoSales(cookiSales){
-     let tokRow = document.createElement('tr');
-     salesTable.appendChild(tokRow);
-     tokRow.textContent= cookiSales.avgCusthour;;
-}
-tokyoSales(tokyoStore);
 
-function dubaiSales(cookiSales){
-    let dubRow = document.createElement('tr');
-    salesTable.appendChild(dubRow);
-    dubRow.textContent= cookiSales.avgCusthour;;
-}
-dubaiSales(dubaiStore);
 
- salmoncookie
             const parisBranch = {
                 minCustomer:20,
                 maxCustomer:38,
@@ -319,31 +289,59 @@ function parisSales(cookiSales){
 parisSales(parisStore);
 
 
+   
+
+let seattleStore = new cookiesStore('Seattle',23, 65, 6.3);
+// seattleStore.checkSales();
+// seattleStore.render();
+ 
+ let tokyoStore = new cookiesStore('Tokyo',3, 24, 1.2);
+ // tokyoStore.checkSales();
+//  tokyoStore.render();
+ let dubaiStore = new cookiesStore('Dubai',11, 38, 3.7);
+//  dubaiStore.checkSales();
+//  dubaiStore.render();
+ let parisStore = new cookiesStore('Paris',20, 38, 2.3);
+//  parisStore.checkSales();
+//  parisStore.render();
+ let liamStore = new cookiesStore('Lima',2, 16, 4.6);
+//  liamStore.checkSales();
+//  liamStore.render();
+for(let i=0; i<branches.length;i++){
+    branches[i].checkSales();
+    branches[i].render();
+
 
 function liamSales(cookiSales){
     let liamRow = document.createElement('tr');
     salesTable.appendChild(liamRow);
     liamRow.textContent= cookiSales.avgCusthour;;
+
 }
-parisSales(liamStore);
 
-let storeLocation = ['Seattle', 'Tokyo','Dubai', 'Paris', 'Liam'];
+function Footrow(){
+    let tots = document.createElement('tr');
+    table1.appendChild(tots);
+    let frstCell = document.createElement('th');
+    tots.appendChild(frstCell);
+    frstCell.textContent= 'Totals';
+    let allTotal = 0;
+    for(let i=0; i<workhrs.length;i++){
+        let sum =0;
+        for(let t =0; t<branches.length; t++){
+            sum+= branches[t].saleHour[i];
+        }
+    let td = document.createElement('td');
+    tots.appendChild(td);
+    td.textContent= sum;
+    allTotal+=sum;
 
 
-let sum=0;
-let totalSaleHour = []; 
-
-function Perhoursales(sales){
-for(let i=0;i<storeLocation.length;i++){
-    let tableFooter = document.getElementById('Total');
-    let totalsum = document.createElement('th');
-    tableFooter.appendChild(totalsum);
-    for(let s=0;s<workhrs.length;s++){
-        sum = sum+ sales.avgCusthour[s];
-        
-        totalSaleHour.push(sum); 
 
     }
-  }
+    let all = document.createElement('th');
+    tots.appendChild(all);
+    all.textContent= allTotal;
+    
 }
-Perhoursales(seattleStore);
+Footrow();

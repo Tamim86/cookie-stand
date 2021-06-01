@@ -1,5 +1,7 @@
-let workhrs = ['06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00', 'Total']
-
+let workhrs = ['06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00']
+function randNum(min,max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 const seattleBranch = {
     minCustomer:23,
     maxCustomer:65,
@@ -10,16 +12,19 @@ const seattleBranch = {
         //let sales = 1;
         //let total = 0;        
         for(i=0; i<workhrs.length; i++){
-            let rand = Math.floor(Math.random() * (this.maxCustomer - this.minCustomer) + this.minCustomer);
-            let sales = Math.floor(this.avgCookies*rand);
+            
+            let sales = Math.floor(this.avgCookies*randNum(this.minCustomer,this.maxCustomer));
             this.totalSales = this.totalSales + sales;
             this.avgCusthour.push(sales);
+            
             //return['At'+workhrs[i+1]+' the number of customers was '+rand+' and the number of burchased cookies '+sales];
         }
         console.log(this.avgCusthour);
+        console.log(this.totalSales);
     
         
-    }, 
+    },
+     
         //this.checkSales(); 
 
     renderResult:function(){
@@ -31,6 +36,10 @@ const seattleBranch = {
 
         }
         
+        let totalsum = document.createElement('li');
+        seattle.appendChild(totalsum);
+        totalsum.textContent = ` Total ${this.totalSales} cookies`;
+
               
      }  
 
@@ -49,8 +58,8 @@ const seattleBranch = {
             //let sales = 1;
             //let total = 0;        
             for(i=0; i<workhrs.length; i++){
-                let rand = Math.floor(Math.random() * (this.maxCustomer - this.minCustomer) + this.minCustomer);
-                let sales = Math.floor(this.avgCookies*rand);
+                let sales = Math.floor(this.avgCookies*randNum(this.minCustomer,this.maxCustomer));
+                
                 this.totalSales = this.totalSales + sales;
                 this.avgCusthour.push(sales);
                 //return['At'+workhrs[i+1]+' the number of customers was '+rand+' and the number of burchased cookies '+sales];
@@ -69,7 +78,13 @@ const seattleBranch = {
                 ulel.textContent = `${workhrs[x]}: ${this.avgCusthour[x]} cookies`;
     
             }
+            let totalsum = document.createElement('li');
+            Tokyo.appendChild(totalsum);
+            totalsum.textContent = ` Total ${this.totalSales} cookies`;
+
             
+         
+
                   
          }  
     
@@ -109,7 +124,10 @@ const seattleBranch = {
         
                 }
                 
-                      
+                let totalsum = document.createElement('li');
+                dubai.appendChild(totalsum);
+                totalsum.textContent = ` Total ${this.totalSales} cookies`;
+        
              }  
         
             }
@@ -150,7 +168,10 @@ const seattleBranch = {
             
                     }
                     
-                          
+                    let totalsum = document.createElement('li');
+                    paris.appendChild(totalsum);
+                    totalsum.textContent = ` Total ${this.totalSales} cookies`;
+        
                  }  
             
                 }
@@ -190,7 +211,10 @@ const seattleBranch = {
                             ulel.textContent = `${workhrs[x]}: ${this.avgCusthour[x]} cookies`;
                 
                         }
-                        
+                        let totalsum = document.createElement('li');
+                        lima.appendChild(totalsum);
+                        totalsum.textContent = ` Total ${this.totalSales} cookies`;
+            
                               
                      }  
                 

@@ -1,32 +1,34 @@
-let workhrs = ['06:00',' ','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00']
+
+
 
 function cookiesStore(min, max, avg){
     this.minCustomer = min;
     this.maxCustomer = max;
     this.avgCookies = avg;
-    this.avgCusthour = [];
+    this.saleHour = [];
     this.totalSales = 0;
     
     
 }
 
 cookiesStore.prototype.checkSales = function(){
-    for(i=0; i<workhrs.length; i++){
+    for(let i=0; i<workhrs.length; i++){
         let rand = Math.floor(Math.random() * (this.maxCustomer - this.minCustomer) + this.minCustomer);
         let sales = Math.floor(this.avgCookies*rand);
         this.totalSales = this.totalSales + sales;
-        this.avgCusthour.push(sales);
+        this.saleHour.push(sales);
     }
-    console.log(this.avgCusthour);    
+    console.log(this.salHour);    
 }
+
 
  
           
    
 
- let seattleStore = new cookiesStore(23, 65, 6.3);
+ let seattleStore = new cookiesStore('Seattle',23, 65, 6.3);
  
- let tokyoStore = new cookiesStore(3, 24, 1.2);
+ let tokyoStore = new cookiesStore('Tokyo',3, 24, 1.2);
  let dubaiStore = new cookiesStore(11, 38, 3.7);
  let parisStore = new cookiesStore(20, 38, 2.3);
  let liamStore = new cookiesStore(2, 16, 4.6);

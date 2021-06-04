@@ -44,9 +44,9 @@ const seattleBranch = {
         totalsum.textContent = ` Total ${this.totalSales} cookies`;
 
               
-     }  
+     
 
-    }
+    
     seattleBranch.checkSales();
     seattleBranch.renderResult();
 

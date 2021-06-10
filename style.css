@@ -1,5 +1,6 @@
 body{
-    background-color: #ddd;
+    background-color: chocolate;
+    
     margin-left:90px;
     margin-right: 90px;
 }
@@ -10,23 +11,28 @@ header{
     
 }
 header nav {
-    background-color: black;    
+    background-color:azure;    
 }
 header nav ul li{
     display: inline-block;
     padding: 30px;
-    color: blanchedalmond;
+    color:rgb(14, 1, 7);
         
 }   
 
 main section img{
-    width: 960px;
-    height: 450px;
+    width: 2000px;
+    margin-top: 20px;
+    padding-left: 750px;
+    
+    
     
 }
 main div img{
     width: 375px;
     height: 300px;
+    padding: 5px;
+    margin-top: 20px;
 
 }
 main div p{
@@ -37,6 +43,8 @@ main div p{
 main section img{
     width: 480px;
     height: 400px;
+    position: relative;
+    right:450px;
 }
 button{
     position: relative;
